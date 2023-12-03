@@ -2,9 +2,13 @@ $(document).ready(function () {
   let subjects = [];
   let optionalSubjects = [];
 
+  // Load data from local storage on page load
+  loadFromLocalStorage();
+
   $("#addSubjectButton").click(function () {
     addSubject();
-    updateGPA();
+    // Save data to local storage after adding a subject
+    saveToLocalStorage();
   });
 
   // Event listener for the export button
@@ -19,7 +23,7 @@ $(document).ready(function () {
 
     // Check if the same subject is already added
     if (subjectAlreadyAdded(subjectName)) {
-      $("#warningMessage").text("Warning: Subject already added.");
+      $("#warningMessage").text("Warning: This Subject already added.");
       return;
     } else {
       $("#warningMessage").text("");
@@ -44,9 +48,22 @@ $(document).ready(function () {
 
       updateSubjectList();
 
-      $("#subjectName").val("");
-      $("#subjectGrade").val("");
-      $("#optionalSubject").prop("checked", false);
+      // Get values from input fields
+      const stdName = $("#studentName").val();
+      const stdClass = $("#classRoll").val();
+      const stdRoll = $("#classRoll").val();
+
+      // Set values to display
+      $("#show-name").text(`${stdName}`);
+      $("#show-class").text(`${stdClass}`);
+      $("#show-roll").text(`${stdRoll}`);
+
+      // Save name, class, and roll to local storage
+      localStorage.setItem('stdName', stdName);
+      localStorage.setItem('stdClass', stdClass);
+      localStorage.setItem('stdRoll', stdRoll);
+
+      updateGPA();
     }
   }
 
@@ -63,18 +80,18 @@ $(document).ready(function () {
 
     for (const subject of subjects) {
       const row = `<tr class="trow">
-          <td class"">${subject.name}</td>
-          <td class"">${subject.grade}</td>
-          <td class"">${subject.point}</td>
+          <td class="">${subject.name}</td>
+          <td class="">${subject.grade}</td>
+          <td class="">${subject.point}</td>
         </tr>`;
       tbody.append(row);
     }
 
     for (const subject of optionalSubjects) {
       const row = `<tr class="trow">
-          <td class"">${subject.name} (Optional)</td>
-          <td class"">${subject.grade}</td>
-          <td class"">${subject.point}</td>
+          <td class="">${subject.name} (Optional)</td>
+          <td class="">${subject.grade}</td>
+          <td class="">${subject.point}</td>
         </tr>`;
       tbody.append(row);
     }
@@ -196,5 +213,33 @@ $(document).ready(function () {
       link.download = "marksheet.jpg";
       link.click();
     });
+  }
+
+  function loadFromLocalStorage() {
+    // Load subjects and optionalSubjects arrays from local storage
+    const storedSubjects = localStorage.getItem('subjects');
+    const storedOptionalSubjects = localStorage.getItem('optionalSubjects');
+    const stdName = localStorage.getItem('stdName');
+    const stdClass = localStorage.getItem('stdClass');
+    const stdRoll = localStorage.getItem('stdRoll');
+
+    subjects = storedSubjects ? JSON.parse(storedSubjects) : [];
+    optionalSubjects = storedOptionalSubjects ? JSON.parse(storedOptionalSubjects) : [];
+
+    // Update the subject list after loading from local storage
+    updateSubjectList();
+    // Update GPA after loading from local storage
+    updateGPA();
+
+    // Display name, class, and roll from local storage
+    if (stdName) $("#show-name").text(`${stdName}`);
+    if (stdClass) $("#show-class").text(` ${stdClass}`);
+    if (stdRoll) $("#show-roll").text(`${stdRoll}`);
+  }
+
+  function saveToLocalStorage() {
+    // Save subjects and optionalSubjects arrays to local storage
+    localStorage.setItem('subjects', JSON.stringify(subjects));
+    localStorage.setItem('optionalSubjects', JSON.stringify(optionalSubjects));
   }
 });

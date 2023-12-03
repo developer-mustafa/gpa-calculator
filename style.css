@@ -41,3 +41,12 @@
     color:rgb(39, 241, 39);
     font-size: 1.5em;
   }
+
+  b{
+    font-size: 1.5em;
+  }
+@media only screen and (max-width:600px){
+input[type="text"]{
+  width: 100%;
+}
+}

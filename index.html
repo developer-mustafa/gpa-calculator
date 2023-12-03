@@ -30,11 +30,20 @@
 
       <div class="top">
         <div class="mb-4">
-          <label
-            for="subjectName"
-            class="block text-lg font-medium text-gray-200"
-            >Subject Name:</label
-          >
+          <p id="warningMessage" class="text-red-500 mt-4"></p>
+
+          <input
+            type="text"
+            id="studentName"
+            placeholder="Enter your name"
+            class="mt-1 p-2 border border-gray-200 text-black font-bold rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+          <input
+            type="text"
+            id="classRoll"
+            placeholder="Enter your class roll"
+            class="mt-1 p-2 border border-gray-200 text-black font-bold rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
           <input
             type="text"
             id="subjectName"
@@ -43,63 +52,71 @@
           />
         </div>
 
-        <div class="mb-4">
-          <label
-            for="subjectGrade"
-            class="block text-lg font-medium text-gray-200"
-            >Subject Grade:</label
-          >
-          <select
-            id="subjectGrade"
-            class="mt-1 p-2 font-bold border border-gray-200 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          >
-            <option value="">Select Grade</option>
-            <option value="A+" class="text-green-600 font-semibold">A+</option>
-            <option value="A" class="text-green-500 font-semibold">A</option>
-            <option value="A-" class="text-green-400 font-semibold">A-</option>
-            <option value="B" class="text-blue-500 font-semibold">B</option>
-            <option value="C" class="text-blue-400 font-semibold">C</option>
-            <option value="D" class="text-yellow-500 font-semibold">D</option>
-            <option value="F" class="text-red-500 font-semibold">F</option>
-          </select>
-        </div>
-
-        <div class="mb-4">
-          <label for="optionalSubject" class="flex items-center">
-            <input type="checkbox" id="optionalSubject" class="m-2" />
-            <span class="text-lg font-medium text-gray-200 mr-2"
-              >Optional Subject</span
+        <div class="top-bottom-side flex justify-between">
+          <div class="mb-4">
+            <select
+              id="subjectGrade"
+              class="mt-1 p-2 font-bold border border-gray-200 rounded-md focus:outline-none focus:ring focus:border-blue-300"
             >
-          </label>
+              <option value="">Select Grade</option>
+              <option value="A+" class="text-green-600 font-semibold">
+                A+
+              </option>
+              <option value="A" class="text-green-500 font-semibold">A</option>
+              <option value="A-" class="text-green-400 font-semibold">
+                A-
+              </option>
+              <option value="B" class="text-blue-500 font-semibold">B</option>
+              <option value="C" class="text-blue-400 font-semibold">C</option>
+              <option value="D" class="text-yellow-500 font-semibold">D</option>
+              <option value="F" class="text-red-500 font-semibold">F</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="optionalSubject" class="flex items-center">
+              <input type="checkbox" id="optionalSubject" class="m-2" />
+              <span class="text-lg font-medium text-gray-200 mr-2"
+                >Optional Subject</span
+              >
+            </label>
+          </div>
         </div>
 
-        <button
-          id="addSubjectButton"
-          class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          Add Subject
-        </button>
+        <div class="btn-group flex justify-between">
+          <button
+            id="addSubjectButton"
+            class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Add Subject
+          </button>
 
-        <button
-          id="exportButton"
-          class="bg-red-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          Export as Image
-        </button>
+          <button
+            id="exportButton"
+            class="bg-red-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Export as Image
+          </button>
+        </div>
       </div>
 
       <div
         id="export"
         class="bg-green-900 text-white p-4 m-3 border border-rounded"
       >
-        <div class="mt-8">
+        <div class="mt-2">
           <div class="subject-list" id="subjectList">
+            <div class="flex justify-around m-2">
+              <p class="pb-1">Name: <span id="show-name"> </span></p>
+              <p class="pb-1">Class: <span id="show-class"> </span></p>
+              <p class="pb-1">Roll: <span id="show-roll"> </span></p>
+            </div>
+
             <table
               class="min-w-full border border-gray-300 shadow-md rounded-md"
             >
               <thead>
                 <tr class="text-white bg-gray-900 border border-0">
-                  <!-- <th class="p-2 px-4 border-b">#</th -->
                   <th class="p-2 px-4 border-b">Subject</th>
                   <th class="p-2 px-4 border-b">Grade</th>
                   <th class="p-2 px-4 border-b">Subject Point</th>
@@ -109,19 +126,21 @@
             </table>
           </div>
 
-          <div class="gpa-result mt-4 text-white" id="gpaResult">
-            <!-- <b>GPA:</b>
-                        <span id="gpaValue" class="text-lg font-bold text-yellow-500"></span>
-                        <br> -->
-            <b>GPA:</b>
-            <span id="finalGradePoint" class="text-lg font-bold"></span>
-            <br />
-            <b>Grade:</b>
-            <span id="finalGrade" class="text-lg font-bold"></span>
+          <div
+            class="gpa-result mt-4 text-white flex justify-between"
+            id="gpaResult"
+          >
+            <div class="result-div-1">
+              <b>GPA:</b>
+              <span id="finalGradePoint" class="text-lg font-bold"></span>
+            </div>
+
+            <div class="result-div2">
+              <b>Grade:</b>
+              <span id="finalGrade" class="text-lg font-bold"></span>
+            </div>
           </div>
         </div>
-
-        <div id="warningMessage" class="text-red-500 mt-4"></div>
       </div>
     </div>
 
