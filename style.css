@@ -1,0 +1,43 @@
+*{
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-family: 'Hind Siliguri', sans-serif;
+  
+  }
+
+  .trow td{
+    padding: 10px;
+    border:1px solid white;
+    text-align: center;
+  }
+
+  .wrapper{
+    max-width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:15px;
+
+   
+  }
+
+  #export{
+    border:1px solid white;
+    width: 100%;
+  }
+
+
+  input[type="checkbox"]{
+    transform: scale(2);
+  
+  }
+
+  .gpa-result span{
+    color:rgb(39, 241, 39);
+    font-size: 1.5em;
+  }
